@@ -4,7 +4,7 @@ import pprint
 import gc
 
 
-IGNORED_ATTRS = set(('__doc__', '__class__', '__hash__', '__new__', '__subclasshook__', '__all__', '__builtins__'))
+IGNORED_ATTRS = {'__doc__', '__class__', '__hash__', '__new__', '__subclasshook__', '__all__', '__builtins__'}
 
 
 # Repr handlers
@@ -39,9 +39,9 @@ def repr_str(obj):
     return _format_str(obj)
 
 
-@repr_handler(unicode)
-def repr_unicode(obj):
-    return _format_str(obj)
+# @repr_handler(unicode)
+# def repr_unicode(obj):
+#     return _format_str(obj)
 
 
 def get_type(obj):

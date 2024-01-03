@@ -1,9 +1,8 @@
 import objgraph
 import subprocess
 import gc
-from itertools import chain
 from collections import defaultdict
-from cStringIO import StringIO
+from io import StringIO
 
 from flask import request, redirect, url_for, Response
 from flask_admin import expose
@@ -104,7 +103,7 @@ class MemoryProfiler(base.ProfilerBaseView):
 
     # Single object
     def _get_request_object(self):
-        obj_id = request.args.get('id', type=long)
+        obj_id = request.args.get('id', type=int)
 
         if not obj_id:
             return None
@@ -203,7 +202,7 @@ class MemoryProfiler(base.ProfilerBaseView):
             self._curr_stats[tools.get_type(obj)].add(id(obj))
 
         # Capture difference
-        for type_name, type_objects in self._curr_stats.iteritems():
+        for type_name, type_objects in self._curr_stats.items():
             if type_name not in prev_stats:
                 self._stat_difference.append((type_name, len(type_objects), len(type_objects)))
 
